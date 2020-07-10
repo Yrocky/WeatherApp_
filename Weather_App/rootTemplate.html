@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="content-type">
+            <style>
+                body{
+                    margin: 0px;
+                    padding: 0px;
+                    background: #F2F5F5;
+                }
+            .invoice-box{
+                width:100%;
+                margin:auto;
+                padding:30px 5px 30px 5px;
+                font-size:16px;
+                line-height:24px;
+                font-family:'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+                color:#555;
+                background: #F2F5F5;
+            }
+            
+            .invoice-box table{
+                width:100%;
+                line-height:inherit;
+                text-align:left;
+            }
+            
+            .invoice-box table td{
+                padding:5px;
+                vertical-align:top;
+            }
+            
+            .invoice-box h1{
+                color: orange;
+                font-weight:bold;
+            }
+            
+            @media only screen and (max-width: 600px) {
+                .invoice-box table tr.top table td{
+                    width:100%;
+                    display:block;
+                    text-align:center;
+                }
+                
+                .invoice-box table tr.information table td{
+                    width:100%;
+                    display:block;
+                    text-align:center;
+                }
+            }
+            .fish-daily-header{
+                display: inline-block;
+                width: 100%;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            .header-left {
+                display: inline-block;
+                
+            }
+            .header-right {
+                display: inline-block;
+                float: right;
+                height: 100%;
+                padding-right: 30px;
+            }
+            .fish-daily-header p {
+                margin: 0;
+            }
+            p.top {
+                font-size: 25px;
+            }
+            p.bottom {
+                font-size: 14px;
+                text-align: center;
+            }
+            .header-right p{
+                font-size: 35px;
+            }
+            .fish-daily-content {
+                overflow: hidden;
+                zoom: 1;
+            }
+            .fish-daily-dot{
+                display: inline-block;
+                width: 4px;
+                height: 4px;
+                margin: 15px 5px 0px 5px;
+                border: 2px solid red;
+                border-radius: 10px;
+                float: left;
+            }
+            .fish-daily-item-content{
+                display: inline-block;
+                width:94%;
+                background:white;
+                border-radius: 10px;
+            }
+            .fish-daily-item-content p{
+                margin: 5px 10px 5px 10px;
+                font-size: 16px;
+            }
+            </style>
+        </head>
+    <body>
+        <div class="invoice-box">
+            <div class="fish-daily-header">
+                <div class="header-left">
+                    <p class="top">
+                    10月
+                    </p>
+                    <p class="bottom">
+                    #FISHDAILY_MONTH#
+                    </p>
+                </div>
+                <div class="header-right">
+                    <p>
+                    咸鱼月刊
+                    </p>
+                </div>
+            </div>
+            <table cellpadding="0" cellspacing="0">
+                <tbody>
+                    #FISHDAILY_ITEMS#
+                </tbody>
+            </table>
+        </div>
+        
+    </body>
+</html>

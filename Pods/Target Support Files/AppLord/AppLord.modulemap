@@ -1,0 +1,6 @@
+framework module AppLord {
+  umbrella header "AppLord-umbrella.h"
+
+  export *
+  module * { export * }
+}
