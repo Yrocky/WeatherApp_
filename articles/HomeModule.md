@@ -2,7 +2,6 @@
 
 在业务开发中，首页会有太多的耦合，特别是那种多页面嵌套的结构，UI结构类似，点击cell的效果类似，空白页类似等等，很多东西都需要共用
 
-
 ### 拆分
 
 在拆分模块的时候，参考的是IGListKit。IGListKit中对UICollectionView的抽离是将每个小模块抽象成一个SectionController，并且在SectionController中决定具体的cell、insert、spacing、header、footer等等
