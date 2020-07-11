@@ -13,15 +13,18 @@ typedef NS_ENUM(NSUInteger, QLLiveComponentSemantic) {
     QLLiveComponentSemanticNormal,
     
     QLLiveComponentSemanticEmbed,
-    QLLiveComponentSemanticFixed,
+    QLLiveComponentSemanticAbsolute,
+    QLLiveComponentSemanticFractional,
 };
 
 @interface QLLiveComponentDistribution ()
 
-@property (nonatomic, readwrite) NSInteger value;
+@property (nonatomic, readwrite) CGFloat value;
 @property (nonatomic) QLLiveComponentSemantic semantic;
 
 @property (nonatomic, readonly) BOOL isEmbed;
+@property (nonatomic, readonly) BOOL isAbsolute;
+@property (nonatomic, readonly) BOOL isFractional;
 @end
 
 @interface QLLiveComponentItemRatio ()
@@ -29,7 +32,7 @@ typedef NS_ENUM(NSUInteger, QLLiveComponentSemantic) {
 @property (nonatomic, readwrite) CGFloat value;
 @property (nonatomic) QLLiveComponentSemantic semantic;
 
-@property (nonatomic, readonly) BOOL isFixed;
+@property (nonatomic, readonly) BOOL isAbsolute;
 @end
 
 @implementation QLLiveComponentLayout
@@ -47,6 +50,7 @@ typedef NS_ENUM(NSUInteger, QLLiveComponentSemantic) {
 
 - (void)setInsets:(UIEdgeInsets)insets{
     _insets = insets;
+    // not mainScreen ,it's collectionView
     _insetContainerWidth = [UIScreen mainScreen].bounds.size.width
     - self.insets.left - self.insets.right;
 }
@@ -62,14 +66,20 @@ typedef NS_ENUM(NSUInteger, QLLiveComponentSemantic) {
     if (nil == self.distribution) {
         self.distribution = [QLLiveComponentDistribution distributionValue:2];
     }
-    NSInteger count = MAX(1, self.distribution.value);
-    width = (componentWidth - (count - 1) * self.interitemSpacing) / count;
+    if (self.distribution.isAbsolute) {
+        width = self.distribution.value;
+    } else if (self.distribution.isFractional) {
+        width = componentWidth * MIN(1, self.distribution.value);
+    } else {
+        NSInteger count = MAX(1, self.distribution.value);
+        width = (componentWidth - (count - 1) * self.interitemSpacing) / count;
+    }
     
     // itemRatio -> height
     if (nil == self.itemRatio) {
         self.itemRatio = [QLLiveComponentItemRatio itemRatioValue:1];
     }
-    if (self.itemRatio.isFixed) {
+    if (self.itemRatio.isAbsolute) {
         height = self.itemRatio.value;
     } else {
         height = width / MAX(0.01, self.itemRatio.value);
@@ -113,23 +123,38 @@ typedef NS_ENUM(NSUInteger, QLLiveComponentSemantic) {
 
 @implementation QLLiveComponentDistribution
 
-+ (instancetype)distributionValue:(NSInteger)distribution{
-    return [[self alloc] initWithDistribution:distribution
++ (instancetype)distributionValue:(NSInteger)value{
+    return [[self alloc] initWithDistribution:(CGFloat)value
                                      semantic:QLLiveComponentSemanticNormal];
 }
-
-- (instancetype)initWithDistribution:(NSInteger)distribution semantic:(QLLiveComponentSemantic)semantic {
++ (instancetype)absoluteDimension:(CGFloat)value{
+    return [[self alloc] initWithDistribution:value
+                                     semantic:QLLiveComponentSemanticAbsolute];
+}
++ (instancetype)fractionalDimension:(CGFloat)value{
+    return [[self alloc] initWithDistribution:value
+                                     semantic:QLLiveComponentSemanticFractional];
+}
+- (instancetype)initWithDistribution:(CGFloat)distribution semantic:(QLLiveComponentSemantic)semantic {
 
     self = [super init];
     if (self) {
         self.value = distribution;
         self.semantic = semantic;
     }
-    return self;;
+    return self;
 }
 
 - (BOOL)isEmbed{
     return self.semantic == QLLiveComponentSemanticEmbed;
+}
+
+- (BOOL)isAbsolute{
+    return self.semantic == QLLiveComponentSemanticAbsolute;
+}
+
+- (BOOL)isFractional{
+    return self.semantic == QLLiveComponentSemanticFractional;
 }
 
 @end
@@ -143,11 +168,11 @@ typedef NS_ENUM(NSUInteger, QLLiveComponentSemantic) {
     return [[self alloc] initWithItemRatio:value semantic:QLLiveComponentSemanticNormal];
 }
 
-+ (instancetype)fixedValue:(CGFloat)value{
++ (instancetype)absoluteValue:(CGFloat)value{
     if (value <= 0) {
         return nil;
     }
-    return [[self alloc] initWithItemRatio:value semantic:QLLiveComponentSemanticFixed];
+    return [[self alloc] initWithItemRatio:value semantic:QLLiveComponentSemanticAbsolute];
 }
 
 - (instancetype)initWithItemRatio:(CGFloat)itemRatio semantic:(QLLiveComponentSemantic)semantic {
@@ -160,7 +185,7 @@ typedef NS_ENUM(NSUInteger, QLLiveComponentSemantic) {
     return self;;
 }
 
-- (BOOL)isFixed{
-    return self.semantic == QLLiveComponentSemanticFixed;
+- (BOOL)isAbsolute{
+    return self.semantic == QLLiveComponentSemanticAbsolute;
 }
 @end

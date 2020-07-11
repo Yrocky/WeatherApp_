@@ -49,12 +49,16 @@ NS_ASSUME_NONNULL_BEGIN
 // Distribution
 @interface QLLiveComponentDistribution : NSObject
 
-+ (instancetype)distributionValue:(NSInteger)distribution;
++ (instancetype)distributionValue:(NSInteger)value;
+// 固定数值
++ (instancetype)absoluteDimension:(CGFloat)value;
+// CollectionView宽度的比例
++ (instancetype)fractionalDimension:(CGFloat)value;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 
-@property (nonatomic, readonly) NSInteger value;
+@property (nonatomic, readonly) CGFloat value;
 
 @end
 
@@ -62,7 +66,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface QLLiveComponentItemRatio : NSObject
 
 + (instancetype)itemRatioValue:(CGFloat)value;
-+ (instancetype)fixedValue:(CGFloat)value;
+// 设定一个固定的高度
++ (instancetype)absoluteValue:(CGFloat)value;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;

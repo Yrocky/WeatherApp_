@@ -71,6 +71,8 @@
 
 - (NSString *) mm_join;
 - (NSString *) mm_join:(NSString *)separator;
+
+- (NSArray<T> *) mm_randomObjects;
 @end
 
 @interface NSNumber (Sugar)

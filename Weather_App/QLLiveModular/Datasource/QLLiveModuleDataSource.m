@@ -63,7 +63,7 @@
     }
 }
 
-- (__kindof UICollectionViewCell *)dequeueReusableCellOfClass:(Class)cellClass  forComponent:(__kindof QLLiveComponent *)component atIndex:(NSInteger)index{
+- (__kindof UICollectionViewCell *)dequeueReusableCellOfClass:(Class)cellClass forComponent:(__kindof QLLiveComponent *)component atIndex:(NSInteger)index{
 
     if (!cellClass) {
         return nil;
@@ -154,6 +154,9 @@
     NSArray * tmp;
     @synchronized (_innerComponents) {
         tmp = [_innerComponents mm_select:^BOOL(QLLiveComponent * component) {
+            if (component.needPlacehold || component.independentDatas) {
+                return YES;
+            }
             return !component.hiddenWhenEmpty || component.datas.count != 0;
         }];
     }
@@ -172,6 +175,10 @@
 - (NSInteger) usageHidenWhenMeptyIndexWithComponent:(__kindof QLLiveComponent *)component{
     NSArray * tmp = [self usageHidenWhenMeptyComponents];
     return [tmp indexOfObject:component];
+}
+
+- (BOOL) canForwardMethodToCollectionViewDelegate:(SEL)sel{
+    return [self.collectionViewDelegate respondsToSelector:sel];
 }
 
 @end
@@ -299,20 +306,28 @@
 
 #pragma mark - UIScrollView
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-//    [[QLHomeLivePreview preview] startPreviewIsScrolling:NO];
+    if ([self canForwardMethodToCollectionViewDelegate:_cmd]) {
+        [self.collectionViewDelegate scrollViewDidEndDecelerating:scrollView];
+    }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-//    [[QLHomeLivePreview preview] startPreviewIsScrolling:NO];
+    if ([self canForwardMethodToCollectionViewDelegate:_cmd]) {
+        [self.collectionViewDelegate scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
+    }
 }
 
 /// 及时停止 不在符合要求的Cell
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-//    [[QLHomeLivePreview preview] startPreviewIsScrolling:YES];
+    if ([self canForwardMethodToCollectionViewDelegate:_cmd]) {
+        [self.collectionViewDelegate scrollViewDidScroll:scrollView];
+    }
 }
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView{
-//    [[QLHomeLivePreview preview] startPreviewIsScrolling:NO];
+    if ([self canForwardMethodToCollectionViewDelegate:_cmd]) {
+        [self.collectionViewDelegate scrollViewDidScrollToTop:scrollView];
+    }
 }
 
 @end
@@ -450,6 +465,9 @@
     if (comp.independentDatas) {
         return;
     }
+    if ([self canForwardMethodToCollectionViewDelegate:_cmd]) {
+        [self.collectionViewDelegate collectionView:collectionView didSelectItemAtIndexPath:indexPath];
+    }
     [comp didSelectItemAtIndex:indexPath.item];
 }
 
@@ -457,6 +475,9 @@
     __kindof QLLiveComponent * comp = (__kindof QLLiveComponent *)[self usageHidenWhenMeptyComponentAtIndex:indexPath.section];
     if (comp.independentDatas) {
         return;
+    }
+    if ([self canForwardMethodToCollectionViewDelegate:_cmd]) {
+        [self.collectionViewDelegate collectionView:collectionView didDeselectItemAtIndexPath:indexPath];
     }
     [comp didDeselectItemAtIndex:indexPath.item];
 }
@@ -466,6 +487,9 @@
     if (comp.independentDatas) {
         return;
     }
+    if ([self canForwardMethodToCollectionViewDelegate:_cmd]) {
+        [self.collectionViewDelegate collectionView:collectionView didHighlightItemAtIndexPath:indexPath];
+    }
     [comp didHighlightItemAtIndex:indexPath.item];
 }
 
@@ -473,6 +497,9 @@
     __kindof QLLiveComponent * comp = (__kindof QLLiveComponent *)[self usageHidenWhenMeptyComponentAtIndex:indexPath.section];
     if (comp.independentDatas) {
         return;
+    }
+    if ([self canForwardMethodToCollectionViewDelegate:_cmd]) {
+        [self.collectionViewDelegate collectionView:collectionView didUnhighlightItemAtIndexPath:indexPath];
     }
     [comp didUnhighlightItemAtIndex:indexPath.item];
 }

@@ -31,12 +31,19 @@
             make.edges.equalTo(self.contentView);
         }];
         if (@available(iOS 11.0, *)) {
-            self.orthogonalScrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+            self.orthogonalScrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentScrollableAxes;
         }
     }
     return self;
 }
+/*
 
+ fixme:
+ The behavior of the UICollectionViewFlowLayout is not defined because:
+ the item height must be less than the height of the UICollectionView minus the section insets top and bottom values, minus the content insets top and bottom values.
+ The relevant UICollectionViewFlowLayout instance is <UICollectionViewFlowLayout: 0x7fd12c52fce0>, and it is attached to <QLOrthogonalScrollerEmbeddedScrollView: 0x7fd12d02aa00; baseClass = UICollectionView; frame = (0 0; 404 40); gestureRecognizers = <NSArray: 0x6000028c1950>; layer = <CALayer: 0x60000260c480>; contentOffset: {68, 0}; contentSize: {472.16666666666663, 40}; adjustedContentInset: {0, 0, 0, 0}; layout: <UICollectionViewFlowLayout: 0x7fd12c52fce0>; dataSource: <QLOrthogonalScrollerSectionController: 0x600002859290>>.
+ Make a symbolic breakpoint at UICollectionViewFlowLayoutBreakForInvalidSizes to catch this in the debugger.
+ */
 + (NSString *) reuseIdentifier{
     return @"QLOrthogonalScrollerEmbeddedCCell";
 }

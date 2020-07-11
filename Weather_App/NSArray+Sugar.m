@@ -299,6 +299,19 @@
 - (NSString *) mm_join:(NSString *)separator {
     return [self componentsJoinedByString:separator];
 }
+
+- (NSArray<id> *) mm_randomObjects{
+    
+    if (self.count == 0) {
+        return nil;
+    }
+    // for temp
+    return self;
+    
+    NSInteger loc = arc4random_uniform((UInt32)self.count);
+    NSInteger len = (loc == self.count - 1) ? 0 : (arc4random_uniform((UInt32)(self.count - loc)));
+    return [self subarrayWithRange:NSMakeRange(loc, len)];
+}
 @end
 
 @implementation NSNumber (Sugar)

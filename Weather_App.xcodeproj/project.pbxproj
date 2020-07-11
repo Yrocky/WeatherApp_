@@ -287,6 +287,7 @@
 		D72CE20F226E165D005D187A /* Share.js in Resources */ = {isa = PBXBuildFile; fileRef = D72CE20E226E165D005D187A /* Share.js */; };
 		D759BB03218CA1B500A06FE0 /* MMAnimatableProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = D759BB02218CA1B500A06FE0 /* MMAnimatableProperty.m */; };
 		D783D36721B8160C002C0D40 /* MMConversation.m in Sources */ = {isa = PBXBuildFile; fileRef = D783D36621B8160C002C0D40 /* MMConversation.m */; };
+		D7862ADA24B9670000AA0BEB /* WSLWaterFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D7862AD824B9670000AA0BEB /* WSLWaterFlowLayout.m */; };
 		D7963EFB21B5678B00B44397 /* ALBookDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7963EFA21B5678B00B44397 /* ALBookDemoViewController.m */; };
 		D7A325E420772DD700B2F8AB /* BillKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A325E320772DD700B2F8AB /* BillKeyboardView.m */; };
 		D7A45DD721B94FCA003EDE2F /* UIImage+DrawImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A45DD621B94FCA003EDE2F /* UIImage+DrawImage.m */; };
@@ -860,6 +861,8 @@
 		D759BB02218CA1B500A06FE0 /* MMAnimatableProperty.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMAnimatableProperty.m; sourceTree = "<group>"; };
 		D783D36521B8160C002C0D40 /* MMConversation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMConversation.h; sourceTree = "<group>"; };
 		D783D36621B8160C002C0D40 /* MMConversation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMConversation.m; sourceTree = "<group>"; };
+		D7862AD824B9670000AA0BEB /* WSLWaterFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSLWaterFlowLayout.m; sourceTree = "<group>"; };
+		D7862AD924B9670000AA0BEB /* WSLWaterFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSLWaterFlowLayout.h; sourceTree = "<group>"; };
 		D7963EF921B5678B00B44397 /* ALBookDemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALBookDemoViewController.h; sourceTree = "<group>"; };
 		D7963EFA21B5678B00B44397 /* ALBookDemoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALBookDemoViewController.m; sourceTree = "<group>"; };
 		D7A325E220772DD700B2F8AB /* BillKeyboardView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BillKeyboardView.h; sourceTree = "<group>"; };
@@ -960,8 +963,8 @@
 			isa = PBXGroup;
 			children = (
 				323574B024B8613C00AE659B /* QLLiveModuleDataSourceAble.h */,
-				323574AF24B8613C00AE659B /* QLLiveModuleDataSource.m */,
 				323574B124B8613C00AE659B /* QLLiveModuleDataSource.h */,
+				323574AF24B8613C00AE659B /* QLLiveModuleDataSource.m */,
 			);
 			path = Datasource;
 			sourceTree = "<group>";
@@ -1755,6 +1758,7 @@
 				7F677F38218C1139009851B6 /* MMGradientView */,
 				7F7BA14A2090799C0085E045 /* PKProtocolExtension.h */,
 				7F7BA14B2090799C0085E045 /* PKProtocolExtension.m */,
+				D7862AD724B9670000AA0BEB /* WSLWaterFlowLayout */,
 				F7C5B57821F571C400D3F9D7 /* PromiseKit */,
 				7F7BA143208DE2EF0085E045 /* 链表 */,
 				7FA274CC2087633E001B9FD2 /* YYWeakProxy */,
@@ -2181,6 +2185,15 @@
 			name = CLTStickyLayout;
 			sourceTree = "<group>";
 		};
+		D7862AD724B9670000AA0BEB /* WSLWaterFlowLayout */ = {
+			isa = PBXGroup;
+			children = (
+				D7862AD924B9670000AA0BEB /* WSLWaterFlowLayout.h */,
+				D7862AD824B9670000AA0BEB /* WSLWaterFlowLayout.m */,
+			);
+			path = WSLWaterFlowLayout;
+			sourceTree = "<group>";
+		};
 		D7A45DD421B816B3003EDE2F /* 单向数据流方案 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2539,6 +2552,7 @@
 				7FDC6ECD1F46E35A00D94379 /* AppDelegate.m in Sources */,
 				5CE42B17228E874400C236FC /* ResumeSkillCell.m in Sources */,
 				5C6EA37922768F8D00EA3D0F /* XXXContext.m in Sources */,
+				D7862ADA24B9670000AA0BEB /* WSLWaterFlowLayout.m in Sources */,
 				5CA733FD2399FD8100A75DA9 /* MMKVViewController.m in Sources */,
 				F77231C621AE607400DA019B /* MMAnimationPromise.m in Sources */,
 				7F3815B821294F60006016E9 /* MM_GiftEffectView.m in Sources */,
